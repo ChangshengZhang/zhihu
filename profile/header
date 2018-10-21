@@ -1,0 +1,17 @@
+cache-control: no-store, no-cache, must-revalidate, proxy-revalidate
+content-encoding: br
+content-security-policy: default-src * blob:; img-src * data: blob:; connect-src * wss:; frame-src 'self' *.zhihu.com weixin: *.vzuu.com getpocket.com note.youdao.com safari-extension://com.evernote.safari.clipper-Q79WDW8YH9 zhihujs: captcha.guard.qcloud.com; script-src 'self' blob: *.zhihu.com res.wx.qq.com 'unsafe-eval' unpkg.zhimg.com unicom.zhimg.com captcha.gtimg.com captcha.guard.qcloud.com pagead2.googlesyndication.com i.hao61.net; style-src 'self' 'unsafe-inline' *.zhihu.com unicom.zhimg.com captcha.gtimg.com
+content-type: text/html; charset=utf-8
+date: Mon, 15 Oct 2018 12:50:14 GMT
+expires: 0
+pragma: no-cache
+server: ZWS
+set-cookie: tgw_l7_route=170010e948f1b2a2d4c7f3737c85e98c; Expires=Mon, 15-Oct-2018 13:05:13 GMT; Path=/
+status: 200
+strict-transport-security: max-age=15552000; includeSubDomains
+surrogate-control: no-store
+vary: Accept-Encoding
+x-backend-server: heifetz.heifetz.0ed73a18---10.64.234.2:31040[10.64.234.2:31040]
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
