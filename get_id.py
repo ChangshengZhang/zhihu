@@ -39,7 +39,7 @@ def _get_html(url):
 
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
     
-    proxy = requests.get('http://127.0.0.1:5010/get/').json()
+    proxy = requests.get('http://127.0.0.1:5010/get/').json()['proxy']
     print(proxy,url)
 
     #for city in city_list:
@@ -149,10 +149,18 @@ class GetZhihuUser():
             
             print(follower_count)
 
-            for jj in range(len(follower_url_token)):
-                op_lines.append(follower_url_token[jj]+','+follower_count[jj]+'\n')
+            if self.follower_num == follower_count[-1]:
+                for jj in range(len(follower_url_token)):
+                    op_lines.append(follower_url_token[jj]+','+follower_count[jj]+'\n')
+            else:
+                for jj in range(len(follower_url_token)):
+                    op_lines.append(follower_url_token[jj]+','+follower_count[jj+1]+'\n')
 
-            f = open(op,'a')
+
+            if ii == 1:
+                f = open(op, 'w')
+            else:
+                f = open(op, 'a')
             f.writelines(op_lines)
             f.close()
 
@@ -161,13 +169,13 @@ class GetZhihuUser():
             
     def get_follow_info(self):
 
-        url_following = 'https://www.zhihu.com/people/{}/following?page='.format(self.url_token)
-        url_follower = 'https://www.zhihu.com/people/{}/followers?page='.format(self.url_token)
-        
         print('get following info')
+        url_following = 'https://www.zhihu.com/people/{}/following?page='.format(self.url_token)
         self.get_follow_url_token(url_following,(int(self.following_num) - 1)/20 + 1,'./data/following/{}.csv'.format(self.url_token))
-        print('get follower info')
-        self.get_follow_url_token(url_follower,(int(self.follower_num) - 1)/20 + 1,'./data/follower/{}.csv'.format(self.url_token))
+
+        #print('get follower info')
+        #url_follower = 'https://www.zhihu.com/people/{}/followers?page='.format(self.url_token)
+        #self.get_follow_url_token(url_follower,(int(self.follower_num) - 1)/20 + 1,'./data/follower/{}.csv'.format(self.url_token))
 
 
 async def run_thread():
@@ -181,15 +189,18 @@ async def run_thread():
 
 def check_follow_num(id_):
 
-    following_num_1 = open('./data/basic_user/'+id_+'.csv').readlines().split(',')[-1]
-    follower_num_1 = open('./data/basic_user/'+id_+'.csv').readlines().split(',')[1]
+    try:
+        following_num_1 = open('./data/basic_user/'+id_+'.csv').readlines().split(',')[-1]
 
-    following_num_2 = len(open('./data/following/'+id_+'.csv').readlines())
-    follower_num_2 = len(open('./data/follower/'+id_+'.csv').readlines())
+        following_num_2 = len(open('./data/following/'+id_+'.csv').readlines())
+        #follower_num_1 = open('./data/basic_user/'+id_+'.csv').readlines().split(',')[1]
+        #follower_num_2 = len(open('./data/follower/'+id_+'.csv').readlines())
 
-    if following_num_1 == following_num_2 and follower_num_1 == follower_num_2:
-        return True
-    else:
+        if following_num_1 == following_num_2:# and follower_num_1 == follower_num_2:
+            return True
+        else:
+            return False
+    except:
         return False
 
 
