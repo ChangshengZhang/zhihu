@@ -1,22 +1,19 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 # File Name: tmp.py
 # Author: Changsheng Zhang
 # mail: zhangcsxx@gmail.com
-# Created Time: Tue Oct 16 16:33:57 2018
-
+# -*- coding: utf-8 -*-
+# Created Time: 2018年10月27日 星期六 17时53分28秒
 #########################################################################
 
 import os
-import requests
 
-url = 'https://www.zhihu.com/people/tong-mark-0217/activities'
+id_list = open('./merged_id.csv').readline().split(',')
 
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
+for ii in range(len(id_list)):
 
-ip = '185.62.188.84:80'
-
-data = requests.get(url,proxies = {'https':'https://{}'.format(ip)},headers = headers).text
-
-print(data)
-
+    f = open('./id/'+str(int(ii/1000)),'a')
+    f.write(id_list[ii])
+    if (ii+1)%1000 !=0:
+        f.write(',')
+    f.close()
